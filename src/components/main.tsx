@@ -3,23 +3,26 @@ import "./main.css";
 const background = require("../assets/photo-tag.jpg");
 
 export default function Main() {
-  const target = (e: React.MouseEvent<HTMLElement>): void => {
+  const makeTarget = (e: React.MouseEvent<HTMLElement>): void => {
     e.preventDefault();
+    console.log(e);
+    let targetDiv: HTMLElement | null = document.getElementById("target");
+    if (targetDiv !== null) {
+      targetDiv.remove();
+    }
     const mouseX: number = e.pageX;
     const mouseY: number = e.pageY;
-    const targetDiv: HTMLDivElement = document.createElement("div");
-    targetDiv.style.position = "relative";
-    targetDiv.style.left = `${mouseX}px`;
-    targetDiv.style.top = `${mouseY}px`;
-    targetDiv.style.border = "2px solid red";
-    targetDiv.textContent = "30px";
-    const img = document.querySelector("img") as HTMLElement;
-    img.appendChild(targetDiv);
+    targetDiv = document.createElement("div");
+    targetDiv.id = "target";
+    targetDiv.style.left = `${mouseX - 30}px`;
+    targetDiv.style.top = `${mouseY - 30}px`;
+    const body = document.querySelector("body") as HTMLElement;
+    body.appendChild(targetDiv);
   };
 
   return (
     <>
-      <img src={background} alt="Video Game Characters" onClick={target} />
+      <img src={background} alt="Video Game Characters" onClick={makeTarget} />
     </>
   );
 }
