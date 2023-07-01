@@ -19,3 +19,11 @@ img {
   position: absolute;
   background-color: rgb(212, 212, 212, 0.7);
 }
+
+.found-marker {
+  position: absolute;
+  border-radius: 50%;
+  font-size: 5rem;
+  color: red;
+  font-weight: bold;
+}

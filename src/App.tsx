@@ -17,6 +17,7 @@ function App() {
   const [targetX, setTargetX] = useState(0 as number);
   const [targetY, setTargetY] = useState(0 as number);
   const [tagArray, setTagArray] = useState([] as tagObjectsType[]);
+  const [foundArray, setFoundArray] = useState([] as tagObjectsType[]);
 
   const firebaseConfig = {
     apiKey: "AIzaSyDCgjZhT4Wxgxkx3_wgIdPC9n8_1aphnC0",
@@ -80,6 +81,7 @@ function App() {
           (object) => object.name !== targetName
         );
         setTagArray(tempTagArray);
+        setFoundArray([...foundArray, tagObject]);
       } else {
         console.log(`This is not ${tagObject.name}`);
       }
@@ -94,6 +96,7 @@ function App() {
           targetX={targetX}
           targetY={targetY}
           tagArray={tagArray}
+          foundArray={foundArray}
           selectTarget={selectTarget}
         />
       ) : null}
