@@ -12,9 +12,9 @@ export default function Target(props: { targetX: string; targetY: string }) {
           top: `${+props.targetY - 15}px`,
         }}
       >
-        <li>Waldo</li>
-        <li>Sonic</li>
-        <li>Fry</li>
+        <li id="waldo-li">Waldo</li>
+        <li id="sonic-li">Sonic</li>
+        <li id="fry-li">Fry</li>
       </ul>
     </>
   );
