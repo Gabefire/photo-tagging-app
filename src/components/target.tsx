@@ -1,27 +1,32 @@
 import { tagObjectsType } from "../App";
 
 export default function Target(props: {
-  targetX: string;
-  targetY: string;
+  targetX: number;
+  targetY: number;
   tagArray: tagObjectsType[];
+  selectTarget: any;
 }) {
   return (
     <>
       <div
         id="target"
-        style={{ left: `${props.targetX}px`, top: `${props.targetY}px` }}
+        style={{
+          left: `${props.targetX - 30}px`,
+          top: `${props.targetY - 30}px`,
+        }}
       />
       <ul
         id="target-list"
         style={{
-          left: `${+props.targetX + 70}px`,
-          top: `${+props.targetY - 15}px`,
+          left: `${+props.targetX + 40}px`,
+          top: `${+props.targetY - 45}px`,
         }}
+        onClick={props.selectTarget}
       >
         {props.tagArray.map((obj) => {
           return (
             <li id={`${obj.name}-li`} key={`${obj.name}-key`}>
-              {obj.name.charAt(0).toUpperCase() + obj.name.slice(1)}
+              {obj.name}
             </li>
           );
         })}
