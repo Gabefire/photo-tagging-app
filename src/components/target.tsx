@@ -1,4 +1,10 @@
-export default function Target(props: { targetX: string; targetY: string }) {
+import { tagObjectsType } from "../App";
+
+export default function Target(props: {
+  targetX: string;
+  targetY: string;
+  tagArray: tagObjectsType[];
+}) {
   return (
     <>
       <div
@@ -12,9 +18,13 @@ export default function Target(props: { targetX: string; targetY: string }) {
           top: `${+props.targetY - 15}px`,
         }}
       >
-        <li id="waldo-li">Waldo</li>
-        <li id="sonic-li">Sonic</li>
-        <li id="fry-li">Fry</li>
+        {props.tagArray.map((obj) => {
+          return (
+            <li id={`${obj.name}-li`} key={`${obj.name}-key`}>
+              {obj.name.charAt(0).toUpperCase() + obj.name.slice(1)}
+            </li>
+          );
+        })}
       </ul>
     </>
   );
