@@ -1,0 +1,49 @@
+body {
+  min-width: 100%;
+  min-height: 100%;
+}
+
+#login-page {
+  position: absolute;
+  align-self: center;
+  justify-self: center;
+  top: 20%;
+  background-color: rgb(63, 63, 63);
+  padding: 20px;
+  color: white;
+  width: 15%;
+}
+
+.title-login {
+  text-align: center;
+}
+
+#login-page form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  font-size: 1.5rem;
+}
+
+#login-page form label {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+#login-page form label input {
+  height: 1.5rem;
+}
+
+#login-page form button {
+  width: 90%;
+  height: 2rem;
+  font-family: inherit;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  background-color: black;
+  border: none;
+  cursor: pointer;
+}

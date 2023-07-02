@@ -3,8 +3,10 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
+  signInAnonymously,
 } from "firebase/auth";
 import React, { useState } from "react";
+import "./login.css";
 
 export default function Login(props: { app: any; start: () => void }) {
   const [showSignUp, setShowSignUp] = useState(false);
@@ -64,6 +66,17 @@ export default function Login(props: { app: any; start: () => void }) {
     }
   };
 
+  const tryMe = async (e: React.PointerEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      const userCredentials = await signInAnonymously(auth);
+      console.log(userCredentials);
+      props.start();
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
   const loginPage = () => {
     return (
       <>
@@ -83,7 +96,9 @@ export default function Login(props: { app: any; start: () => void }) {
           <button id="sign-up-btn" onClick={changeLoginToSignUp}>
             Sign Up
           </button>
-          <button id="try-me-btn">Try Me</button>
+          <button id="try-me-btn" onClick={tryMe}>
+            Try Me
+          </button>
         </form>
       </>
     );
@@ -120,7 +135,7 @@ export default function Login(props: { app: any; start: () => void }) {
   return (
     <div id="login-page">
       {" "}
-      <h1>Where's Waldo</h1>
+      <h1 className="title-login">Where's Waldo</h1>
       {showSignUp ? signUpPage() : loginPage()}
     </div>
   );

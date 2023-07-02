@@ -16,6 +16,7 @@ export interface tagObjectsType {
 
 function App() {
   const [showTarget, setShowTarget] = useState(false);
+  const [showLogin, setShowLogin] = useState(true);
   const [targetX, setTargetX] = useState(0 as number);
   const [targetY, setTargetY] = useState(0 as number);
   const [tagArray, setTagArray] = useState([] as tagObjectsType[]);
@@ -66,7 +67,7 @@ function App() {
   }, [running]);
 
   const startApp = () => {
-    setRunning(!running);
+    setShowLogin(!showLogin);
   };
 
   const makeTarget = (e: React.PointerEvent<HTMLElement>) => {
@@ -123,7 +124,7 @@ function App() {
 
   return (
     <div className="App">
-      {!running ? (
+      {showLogin ? (
         <Login app={app} start={startApp as () => void} />
       ) : (
         <Main makeTarget={makeTarget} time={time} />
