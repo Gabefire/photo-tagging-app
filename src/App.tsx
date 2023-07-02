@@ -17,6 +17,7 @@ export interface tagObjectsType {
 function App() {
   const [showTarget, setShowTarget] = useState(false);
   const [showLogin, setShowLogin] = useState(true);
+
   const [targetX, setTargetX] = useState(0 as number);
   const [targetY, setTargetY] = useState(0 as number);
   const [tagArray, setTagArray] = useState([] as tagObjectsType[]);

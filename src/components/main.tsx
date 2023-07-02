@@ -1,8 +1,12 @@
+import React, { useState } from "react";
+import Instructions from "./instructions";
 import "./main.css";
 
 const background = require("../assets/photo-tag.jpg");
 
 export default function Main(props: { makeTarget: any; time: number }) {
+  const [showInstructions, setShowInstructions] = useState(true);
+
   return (
     <>
       <div className="header">
@@ -23,7 +27,9 @@ export default function Main(props: { makeTarget: any; time: number }) {
         src={background}
         alt="Video Game Characters"
         onClick={props.makeTarget}
+        id="background-image"
       />
+      {showInstructions ? <Instructions /> : null}
     </>
   );
 }
