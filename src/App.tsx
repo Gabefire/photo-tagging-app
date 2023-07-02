@@ -18,6 +18,8 @@ function App() {
   const [targetY, setTargetY] = useState(0 as number);
   const [tagArray, setTagArray] = useState([] as tagObjectsType[]);
   const [foundArray, setFoundArray] = useState([] as tagObjectsType[]);
+  const [time, setTime] = useState(0 as number);
+  const [running, setRunning] = useState(false);
 
   const firebaseConfig = {
     apiKey: "AIzaSyDCgjZhT4Wxgxkx3_wgIdPC9n8_1aphnC0",
@@ -46,15 +48,32 @@ function App() {
       }
     };
     getTargetPositions();
+    setRunning(true);
   }, []);
+
+  useEffect(() => {
+    let interval: any;
+    if (running) {
+      interval = setInterval(() => {
+        setTime((prevTime) => prevTime + 10);
+      }, 10);
+    } else if (!running) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [running]);
 
   const makeTarget = (e: React.PointerEvent<HTMLElement>) => {
     e.preventDefault();
     setShowTarget(true);
     const mouseX: number = e.pageX;
     const mouseY: number = e.pageY;
-    // function below to show position of mouse on screen
-    // console.log(`MouseX: ${mouseX} MouseY: ${mouseY}`);
+    const myImg = document.querySelector("img") as HTMLImageElement;
+    console.log(
+      `mouseX: ${(mouseX / myImg.clientWidth) * 1000} mouseY: ${
+        (mouseY / myImg.clientHeight) * 1000
+      }`
+    );
     setTargetX(mouseX);
     setTargetY(mouseY);
   };
@@ -68,20 +87,26 @@ function App() {
       tagObject = tempTagArray.find((object) => object.name === targetName);
     }
     // added 30 for selection to accommodate for padding
+    const myImg = document.querySelector("img") as HTMLImageElement;
     if (tagObject !== undefined) {
       if (
-        tagObject.minX <= targetX + 30 &&
-        tagObject.maxX >= targetX - 30 &&
-        tagObject.minY <= targetY + 30 &&
-        tagObject.maxY >= targetY - 30
+        tagObject.minX <= (targetX / myImg.clientWidth) * 1000 &&
+        tagObject.maxX >= (targetX / myImg.clientWidth) * 1000 &&
+        tagObject.minY <= (targetY / myImg.clientHeight) * 1000 &&
+        tagObject.maxY >= (targetY / myImg.clientHeight) * 1000
       ) {
         console.log(`${tagObject.name} found`);
         targetName = tagObject.name;
         tempTagArray = tempTagArray.filter(
           (object) => object.name !== targetName
         );
-        setTagArray(tempTagArray);
-        setFoundArray([...foundArray, tagObject]);
+        if (tempTagArray.length === 0) {
+          console.log("you win");
+          setRunning(false);
+        } else {
+          setTagArray(tempTagArray);
+          setFoundArray([...foundArray, tagObject]);
+        }
       } else {
         console.log(`This is not ${tagObject.name}`);
       }
@@ -90,7 +115,7 @@ function App() {
 
   return (
     <div className="App">
-      <Main makeTarget={makeTarget} />
+      <Main makeTarget={makeTarget} time={time} />
       {showTarget ? (
         <Target
           targetX={targetX}

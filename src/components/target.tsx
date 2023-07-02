@@ -1,6 +1,5 @@
 import { ReactElement } from "react";
 import { tagObjectsType } from "../App";
-import * as React from "react";
 
 export default function Target(props: {
   targetX: number;
@@ -10,15 +9,28 @@ export default function Target(props: {
   selectTarget: any;
 }) {
   const addTargetFoundMarker = () => {
-    console.log(props.foundArray);
+    const myImg = document.querySelector("img") as HTMLImageElement;
     return props.foundArray.map((obj) => {
       return (
         <div
           className="found-marker"
           style={{
-            left: `${Math.trunc((obj.minX + obj.maxX) / 2) - 20}px`,
-            top: `${Math.trunc((obj.minY + obj.maxY) / 2) - 45}px`,
+            left: `${
+              Math.trunc(
+                ((obj.minX * myImg.clientWidth) / 1000 +
+                  (obj.maxX * myImg.clientWidth) / 1000) /
+                  2
+              ) - 20
+            }px`,
+            top: `${
+              Math.trunc(
+                ((obj.minY * myImg.clientHeight) / 1000 +
+                  (obj.maxY * myImg.clientHeight) / 1000) /
+                  2
+              ) - 45
+            }px`,
           }}
+          key={`${obj.name}-marker`}
         >
           X
         </div>

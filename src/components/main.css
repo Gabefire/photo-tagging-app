@@ -1,5 +1,13 @@
+.App {
+  display: flex;
+  flex-direction: column;
+}
+
 img {
-  position: absolute;
+  margin-top: 100px;
+  flex: 1;
+  min-width: 1920px;
+  min-height: 2715px;
   object-fit: contain;
 }
 
@@ -26,4 +34,26 @@ img {
   font-size: 5rem;
   color: red;
   font-weight: bold;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(63, 63, 63);
+  color: white;
+  height: 100px;
+  z-index: 3;
+}
+
+#time-elements {
+  font-size: 3rem;
+  margin: 60px;
+}
+
+.title {
+  font-size: 3rem;
 }
