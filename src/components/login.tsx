@@ -2,8 +2,9 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 export default function Login(props: { app: any; start: () => void }) {
   const [showSignUp, setShowSignUp] = useState(false);
@@ -17,19 +18,17 @@ export default function Login(props: { app: any; start: () => void }) {
 
   const login = async (e: React.PointerEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log(auth);
     const userEmail = document.getElementById("username") as HTMLInputElement;
     const userPassword = document.getElementById(
       "password"
     ) as HTMLInputElement;
-    console.log(userPassword);
     try {
-      const userCreditional = await signInWithEmailAndPassword(
+      const userCredentials = await signInWithEmailAndPassword(
         auth,
         userEmail.value,
         userPassword.value
       );
-      console.log(userCreditional);
+      console.log(userCredentials);
       props.start();
     } catch (error: any) {
       console.log(error);
@@ -38,6 +37,31 @@ export default function Login(props: { app: any; start: () => void }) {
 
   const signUp = async (e: React.PointerEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    const userEmail = document.getElementById(
+      "username-sign-up"
+    ) as HTMLInputElement;
+    const userPassword = document.getElementById(
+      "password-sign-up"
+    ) as HTMLInputElement;
+    const displayName = document.getElementById(
+      "name-sign-up"
+    ) as HTMLInputElement;
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        userEmail.value,
+        userPassword.value
+      );
+      if (auth.currentUser !== null) {
+        await updateProfile(auth.currentUser, {
+          displayName: displayName.value,
+        });
+      }
+      console.log(userCredentials);
+      setShowSignUp(!showSignUp);
+    } catch (error: any) {
+      console.log(error);
+    }
   };
 
   const loginPage = () => {
@@ -93,5 +117,11 @@ export default function Login(props: { app: any; start: () => void }) {
     );
   };
 
-  return <div id="login-page">{showSignUp ? signUpPage() : loginPage()}</div>;
+  return (
+    <div id="login-page">
+      {" "}
+      <h1>Where's Waldo</h1>
+      {showSignUp ? signUpPage() : loginPage()}
+    </div>
+  );
 }

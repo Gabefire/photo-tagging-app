@@ -22,7 +22,6 @@ function App() {
   const [foundArray, setFoundArray] = useState([] as tagObjectsType[]);
   const [time, setTime] = useState(0 as number);
   const [running, setRunning] = useState(false as boolean);
-  const [user, setUser] = useState([] as string[]);
 
   const firebaseConfig = {
     apiKey: "AIzaSyDCgjZhT4Wxgxkx3_wgIdPC9n8_1aphnC0",
@@ -51,6 +50,7 @@ function App() {
       }
     };
     getTargetPositions();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
