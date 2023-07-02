@@ -1,13 +1,19 @@
 .App {
   display: flex;
   flex-direction: column;
+  height: 100%;
+}
+
+body {
+  min-width: 1920px;
+  min-height: 2715px;
+  background-color: rgb(34, 34, 34);
 }
 
 img {
   margin-top: 100px;
   flex: 1;
-  min-width: 1920px;
-  min-height: 2715px;
+
   object-fit: contain;
 }
 
@@ -47,13 +53,30 @@ img {
   color: white;
   height: 100px;
   z-index: 3;
-}
-
-#time-elements {
-  font-size: 3rem;
-  margin: 60px;
+  font-size: 1.5rem;
 }
 
 .title {
-  font-size: 3rem;
+  margin: 60px;
+}
+
+#timer {
+  margin: 60px;
+}
+
+@media only screen and (max-width: 768px) {
+  .header {
+    position: fixed;
+    top: 0;
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .title {
+    margin: 10px;
+  }
+
+  #timer {
+    margin: 10px;
+  }
 }

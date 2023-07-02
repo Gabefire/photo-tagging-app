@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Main from "./components/main";
 import Target from "./components/target";
+import TargetFound from "./components/target-found";
+import Login from "./components/login";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 
@@ -19,7 +21,8 @@ function App() {
   const [tagArray, setTagArray] = useState([] as tagObjectsType[]);
   const [foundArray, setFoundArray] = useState([] as tagObjectsType[]);
   const [time, setTime] = useState(0 as number);
-  const [running, setRunning] = useState(false);
+  const [running, setRunning] = useState(false as boolean);
+  const [user, setUser] = useState([] as string[]);
 
   const firebaseConfig = {
     apiKey: "AIzaSyDCgjZhT4Wxgxkx3_wgIdPC9n8_1aphnC0",
@@ -48,7 +51,6 @@ function App() {
       }
     };
     getTargetPositions();
-    setRunning(true);
   }, []);
 
   useEffect(() => {
@@ -62,6 +64,10 @@ function App() {
     }
     return () => clearInterval(interval);
   }, [running]);
+
+  const startApp = () => {
+    setRunning(!running);
+  };
 
   const makeTarget = (e: React.PointerEvent<HTMLElement>) => {
     e.preventDefault();
@@ -90,10 +96,10 @@ function App() {
     const myImg = document.querySelector("img") as HTMLImageElement;
     if (tagObject !== undefined) {
       if (
-        tagObject.minX <= (targetX / myImg.clientWidth) * 1000 &&
-        tagObject.maxX >= (targetX / myImg.clientWidth) * 1000 &&
-        tagObject.minY <= (targetY / myImg.clientHeight) * 1000 &&
-        tagObject.maxY >= (targetY / myImg.clientHeight) * 1000
+        tagObject.minX <= ((targetX + 30) / myImg.clientWidth) * 1000 &&
+        tagObject.maxX >= ((targetX - 30) / myImg.clientWidth) * 1000 &&
+        tagObject.minY <= ((targetY + 30) / myImg.clientHeight) * 1000 &&
+        tagObject.maxY >= ((targetY - 30) / myImg.clientHeight) * 1000
       ) {
         console.log(`${tagObject.name} found`);
         targetName = tagObject.name;
@@ -102,6 +108,8 @@ function App() {
         );
         if (tempTagArray.length === 0) {
           console.log("you win");
+          setFoundArray([...foundArray, tagObject]);
+          setShowTarget(false);
           setRunning(false);
         } else {
           setTagArray(tempTagArray);
@@ -115,16 +123,20 @@ function App() {
 
   return (
     <div className="App">
-      <Main makeTarget={makeTarget} time={time} />
+      {!running ? (
+        <Login app={app} start={startApp as () => void} />
+      ) : (
+        <Main makeTarget={makeTarget} time={time} />
+      )}
       {showTarget ? (
         <Target
           targetX={targetX}
           targetY={targetY}
           tagArray={tagArray}
-          foundArray={foundArray}
           selectTarget={selectTarget}
         />
       ) : null}
+      {foundArray.length > 0 ? <TargetFound foundArray={foundArray} /> : null}
     </div>
   );
 }
