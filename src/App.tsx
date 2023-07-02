@@ -71,6 +71,10 @@ function App() {
     setShowLogin(!showLogin);
   };
 
+  const startTimer = () => {
+    setRunning(!running);
+  };
+
   const makeTarget = (e: React.PointerEvent<HTMLElement>) => {
     e.preventDefault();
     setShowTarget(true);
@@ -128,7 +132,7 @@ function App() {
       {showLogin ? (
         <Login app={app} start={startApp as () => void} />
       ) : (
-        <Main makeTarget={makeTarget} time={time} />
+        <Main makeTarget={makeTarget} time={time} startTimer={startTimer} />
       )}
       {showTarget ? (
         <Target

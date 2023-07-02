@@ -4,8 +4,18 @@ import "./main.css";
 
 const background = require("../assets/photo-tag.jpg");
 
-export default function Main(props: { makeTarget: any; time: number }) {
+export default function Main(props: {
+  makeTarget: any;
+  time: number;
+  startTimer: any;
+}) {
   const [showInstructions, setShowInstructions] = useState(true);
+
+  const startGame = (e: React.PointerEvent<HTMLElement>) => {
+    e.preventDefault();
+    setShowInstructions(!showInstructions);
+    props.startTimer();
+  };
 
   return (
     <>
@@ -29,7 +39,7 @@ export default function Main(props: { makeTarget: any; time: number }) {
         onClick={props.makeTarget}
         id="background-image"
       />
-      {showInstructions ? <Instructions /> : null}
+      {showInstructions ? <Instructions startTimer={startGame} /> : null}
     </>
   );
 }

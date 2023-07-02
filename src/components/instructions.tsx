@@ -1,3 +1,5 @@
+import "./instructions.css";
+
 const fry = require("../assets/fry.png");
 const sonic = require("../assets/sonic.png");
 const waldo = require("../assets/waldo.png");
@@ -7,6 +9,7 @@ export default function Instructions({ startTimer }: any) {
     <div id="instructions">
       <div>Find the Characters as fast as you can</div>
       <div>Once you click start, the timer will start</div>
+
       <div className="image-containers">
         <div className="image-container" id="fry-conatiner">
           <img src={fry} alt="fry" />
@@ -17,10 +20,13 @@ export default function Instructions({ startTimer }: any) {
           <div>Sonic</div>
         </div>
         <div className="image-container" id="wald-conatiner">
-          <img src={waldo} alt="waldo" />
+          <img src={waldo} alt="waldo" id="waldo-image" />
           <div>Waldo</div>
         </div>
       </div>
+      <button id="start-btn" onClick={startTimer}>
+        Start
+      </button>
     </div>
   );
 }
