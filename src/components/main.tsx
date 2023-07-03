@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Instructions from "./instructions";
+import HighScores from "./high-scores";
 import "./main.css";
 
 const background = require("../assets/photo-tag.jpg");
@@ -8,6 +9,8 @@ export default function Main(props: {
   makeTarget: any;
   time: number;
   startTimer: any;
+  gameOver: boolean;
+  app: any;
 }) {
   const [showInstructions, setShowInstructions] = useState(true);
 
@@ -40,6 +43,9 @@ export default function Main(props: {
         id="background-image"
       />
       {showInstructions ? <Instructions startTimer={startGame} /> : null}
+      {!props.gameOver ? null : (
+        <HighScores time={props.time} app={props.app} />
+      )}
     </>
   );
 }

@@ -17,7 +17,7 @@ export interface tagObjectsType {
 function App() {
   const [showTarget, setShowTarget] = useState(false);
   const [showLogin, setShowLogin] = useState(true);
-
+  const [gameOver, setGameOver] = useState(false);
   const [targetX, setTargetX] = useState(0 as number);
   const [targetY, setTargetY] = useState(0 as number);
   const [tagArray, setTagArray] = useState([] as tagObjectsType[]);
@@ -117,6 +117,7 @@ function App() {
           setFoundArray([...foundArray, tagObject]);
           setShowTarget(false);
           setRunning(false);
+          setGameOver(true);
         } else {
           setTagArray(tempTagArray);
           setFoundArray([...foundArray, tagObject]);
@@ -132,7 +133,13 @@ function App() {
       {showLogin ? (
         <Login app={app} start={startApp as () => void} />
       ) : (
-        <Main makeTarget={makeTarget} time={time} startTimer={startTimer} />
+        <Main
+          makeTarget={makeTarget}
+          time={time}
+          startTimer={startTimer}
+          gameOver={gameOver}
+          app={app}
+        />
       )}
       {showTarget ? (
         <Target

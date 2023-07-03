@@ -1,4 +1,4 @@
-#instructions {
+.pop-up {
   color: white;
   font-weight: bold;
   font-size: 1.5rem;
@@ -9,10 +9,12 @@
   top: 25%;
   align-self: center;
   background-color: rgb(63, 63, 63);
-  height: 30%;
+  height: 50%;
   width: 50%;
   margin: 0;
-  padding: 60px;
+  padding-top: 10px;
+  padding-bottom: 60px;
+  z-index: 3;
 }
 .image-containers {
   align-self: center;

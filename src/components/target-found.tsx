@@ -14,14 +14,14 @@ export default function TargetFound(props: { foundArray: tagObjectsType[] }) {
                   ((obj.minX * myImg.clientWidth) / 1000 +
                     (obj.maxX * myImg.clientWidth) / 1000) /
                     2
-                ) - 20
+                ) - 30
               }px`,
               top: `${
                 Math.trunc(
                   ((obj.minY * myImg.clientHeight) / 1000 +
                     (obj.maxY * myImg.clientHeight) / 1000) /
                     2
-                ) - 70
+                ) - 30
               }px`,
             }}
             key={`${obj.name}-marker`}
