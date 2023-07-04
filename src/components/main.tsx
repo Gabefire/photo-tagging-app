@@ -11,6 +11,7 @@ export default function Main(props: {
   startTimer: any;
   gameOver: boolean;
   app: any;
+  status: string;
 }) {
   const [showInstructions, setShowInstructions] = useState(true);
 
@@ -18,6 +19,16 @@ export default function Main(props: {
     e.preventDefault();
     setShowInstructions(!showInstructions);
     props.startTimer();
+  };
+
+  const statusStyle = (status: string): string => {
+    if (/^This is not [a-zA-Z]+/.test(status)) {
+      return "red";
+    } else if (/^[a-zA-Z]+ found/.test(status) || status === "You win!") {
+      return "green";
+    } else {
+      return "";
+    }
   };
 
   return (
@@ -35,6 +46,9 @@ export default function Main(props: {
           {/* milliseconds */}
           <span>{("0" + ((props.time / 10) % 100)).slice(-2)}</span>
         </div>
+      </div>
+      <div className={`status ${statusStyle(props.status)}`}>
+        {props.status}
       </div>
       <img
         src={background}

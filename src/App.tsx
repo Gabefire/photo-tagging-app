@@ -24,6 +24,7 @@ function App() {
   const [foundArray, setFoundArray] = useState([] as tagObjectsType[]);
   const [time, setTime] = useState(0 as number);
   const [running, setRunning] = useState(false as boolean);
+  const [status, setStatus] = useState("" as string);
 
   const firebaseConfig = {
     apiKey: "AIzaSyDCgjZhT4Wxgxkx3_wgIdPC9n8_1aphnC0",
@@ -90,6 +91,10 @@ function App() {
     setTargetY(mouseY);
   };
 
+  const clearStatus = () => {
+    setStatus("");
+  };
+
   const selectTarget = (e: React.PointerEvent<HTMLElement>) => {
     let targetName: string;
     let tagObject: tagObjectsType | undefined;
@@ -107,13 +112,14 @@ function App() {
         tagObject.minY <= ((targetY + 30) / myImg.clientHeight) * 1000 &&
         tagObject.maxY >= ((targetY - 30) / myImg.clientHeight) * 1000
       ) {
-        console.log(`${tagObject.name} found`);
+        setStatus(`${tagObject.name} found`);
+        setTimeout(clearStatus, 10000);
         targetName = tagObject.name;
         tempTagArray = tempTagArray.filter(
           (object) => object.name !== targetName
         );
         if (tempTagArray.length === 0) {
-          console.log("you win");
+          setStatus("You win!");
           setFoundArray([...foundArray, tagObject]);
           setShowTarget(false);
           setRunning(false);
@@ -123,7 +129,8 @@ function App() {
           setFoundArray([...foundArray, tagObject]);
         }
       } else {
-        console.log(`This is not ${tagObject.name}`);
+        setStatus(`This is not ${tagObject.name}`);
+        setTimeout(clearStatus, 10000);
       }
     }
   };
@@ -139,6 +146,7 @@ function App() {
           startTimer={startTimer}
           gameOver={gameOver}
           app={app}
+          status={status}
         />
       )}
       {showTarget && running ? (

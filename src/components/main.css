@@ -64,6 +64,30 @@ body {
   margin: 60px;
 }
 
+.status {
+  color: white;
+  position: fixed;
+  top: 110px;
+  left: 50vw;
+  border: none;
+  border-radius: 25px;
+  padding: 7px;
+  font-size: 1rem;
+  font-weight: bold;
+  visibility: hidden;
+  z-index: 4;
+}
+
+.green {
+  background-color: green;
+  visibility: visible;
+}
+
+.red {
+  background-color: red;
+  visibility: visible;
+}
+
 @media only screen and (max-width: 768px) {
   .header {
     position: fixed;
