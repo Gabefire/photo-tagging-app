@@ -12,9 +12,9 @@ body {
 
 #background-image {
   margin-top: 100px;
-  flex: 1;
-
-  object-fit: contain;
+  max-height: 150%;
+  width: 1920px;
+  height: 2715px;
 }
 
 #target {

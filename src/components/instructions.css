@@ -9,21 +9,22 @@
   top: 25%;
   align-self: center;
   background-color: rgb(63, 63, 63);
-  height: 50%;
-  width: 50%;
+  width: 50vw;
   margin: 0;
+  height: 45vh;
   padding-top: 10px;
   padding-bottom: 60px;
   z-index: 3;
+  min-width: 300px;
 }
 .image-containers {
   align-self: center;
   justify-self: center;
-  gap: 50%;
+  gap: 8vw;
   display: flex;
   justify-content: center;
   margin: 0;
-  height: 80%;
+  height: 30vh;
   margin-top: 10px;
 }
 .image-container {
@@ -51,4 +52,11 @@
   font-family: inherit;
   width: 80%;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 930px) {
+  .pop-up .title-instructions {
+    font-size: 1rem;
+    text-align: center;
+  }
 }

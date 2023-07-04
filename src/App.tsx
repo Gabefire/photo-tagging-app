@@ -141,7 +141,7 @@ function App() {
           app={app}
         />
       )}
-      {showTarget ? (
+      {showTarget && running ? (
         <Target
           targetX={targetX}
           targetY={targetY}

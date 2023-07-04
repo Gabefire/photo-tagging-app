@@ -7,8 +7,12 @@ const waldo = require("../assets/waldo.png");
 export default function Instructions({ startTimer }: any) {
   return (
     <div id="instructions" className="pop-up">
-      <div>Find the Characters as fast as you can</div>
-      <div>Once you click start, the timer will start</div>
+      <div className="title-instructions">
+        Find the Characters as fast as you can
+      </div>
+      <div className="title-instructions">
+        Once you click start, the timer will start
+      </div>
 
       <div className="image-containers">
         <div className="image-container" id="fry-conatiner">

@@ -54,7 +54,7 @@ export default function HighScores(props: { time: number; app: any }) {
           }
         });
         console.log(tempHighScoreArray);
-        setHighScoreArray(tempHighScoreArray.slice(0, 5));
+        setHighScoreArray(tempHighScoreArray.slice(0, 10));
       } catch (e) {
         console.log(e);
       }
@@ -75,7 +75,7 @@ export default function HighScores(props: { time: number; app: any }) {
         return (
           <div className="user-container" key={`${user.user}-${index}`}>
             <div>{`${index + 1}`}</div>
-            <div>{user.user}</div>
+            <div id="user-name">{user.user}</div>
             <div>
               {/* mins */}
               <span>
