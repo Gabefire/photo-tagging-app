@@ -18,6 +18,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -42,6 +44,8 @@
     ]
   },
   "devDependencies": {
-    "firebase-tools": "^12.4.2"
-  }
+    "firebase-tools": "^12.4.2",
+    "gh-pages": "^5.0.0"
+  },
+  "homepage": "https://gabefire.github.io/photo-tagging-app/"
 }
