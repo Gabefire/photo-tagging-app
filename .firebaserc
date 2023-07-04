@@ -1,5 +1,7 @@
 {
   "projects": {
     "default": "photo-tagging-app-66f90"
-  }
+  },
+  "targets": {},
+  "etags": {}
 }
