@@ -82,11 +82,6 @@ function App() {
     const mouseX: number = e.pageX;
     const mouseY: number = e.pageY;
     const myImg = document.querySelector("img") as HTMLImageElement;
-    console.log(
-      `mouseX: ${(mouseX / myImg.clientWidth) * 1000} mouseY: ${
-        (mouseY / myImg.clientHeight) * 1000
-      }`
-    );
     setTargetX(mouseX);
     setTargetY(mouseY);
   };
