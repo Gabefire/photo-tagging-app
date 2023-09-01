@@ -5,20 +5,27 @@ import "./main.css";
 
 const background = require("../assets/photo-tag.jpg");
 
-export default function Main(props: {
+interface mainType {
   makeTarget: any;
   time: number;
   startTimer: any;
   gameOver: boolean;
-  app: any;
   status: string;
-}) {
+}
+
+export default function Main({
+  makeTarget,
+  time,
+  startTimer,
+  gameOver,
+  status,
+}: mainType) {
   const [showInstructions, setShowInstructions] = useState(true);
 
   const startGame = (e: React.PointerEvent<HTMLElement>) => {
     e.preventDefault();
     setShowInstructions(!showInstructions);
-    props.startTimer();
+    startTimer();
   };
 
   const statusStyle = (status: string): string => {
@@ -38,28 +45,22 @@ export default function Main(props: {
         <div id="timer">
           {"Timer: "}
           {/* mins */}
-          <span>
-            {("0" + Math.floor((props.time / 60000) % 60)).slice(-2)}:
-          </span>
+          <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
           {/* seconds */}
-          <span>{("0" + Math.floor((props.time / 1000) % 60)).slice(-2)}:</span>
+          <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
           {/* milliseconds */}
-          <span>{("0" + ((props.time / 10) % 100)).slice(-2)}</span>
+          <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
         </div>
       </div>
-      <div className={`status ${statusStyle(props.status)}`}>
-        {props.status}
-      </div>
+      <div className={`status ${statusStyle(status)}`}>{status}</div>
       <img
         src={background}
         alt="Video Game Characters"
-        onClick={props.makeTarget}
+        onClick={makeTarget}
         id="background-image"
       />
       {showInstructions ? <Instructions startTimer={startGame} /> : null}
-      {!props.gameOver ? null : (
-        <HighScores time={props.time} app={props.app} />
-      )}
+      {!gameOver ? null : <HighScores time={time} />}
     </>
   );
 }

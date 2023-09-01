@@ -1,65 +1,18 @@
-import {
-  getFirestore,
-  addDoc,
-  getDocs,
-  collection,
-  doc,
-} from "firebase/firestore";
-import { getAuth } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { time } from "console";
 import "./high-scores.css";
 
-interface highScoreType {
-  user: string;
+interface highScoresType {
   time: number;
 }
 
-export default function HighScores(props: { time: number; app: any }) {
-  const [highScoreArray, setHighScoreArray] = useState([] as highScoreType[]);
+export default function HighScores({ time }: highScoresType) {
+  const [highScoreArray, setHighScoreArray] = useState(
+    [] as { user: string; time: number }[]
+  );
 
   useEffect(() => {
-    const auth = getAuth(props.app);
-    const db = getFirestore(props.app);
-    let user: string | null | undefined;
-    if (
-      auth.currentUser?.isAnonymous ||
-      auth.currentUser?.displayName === null
-    ) {
-      user = "Anonymous User";
-    } else if (typeof auth.currentUser?.displayName === "string") {
-      user = auth.currentUser?.displayName;
-    }
-    const userData = { user: user, time: props.time };
-    const addUserTime = async () => {
-      try {
-        await addDoc(collection(db, `high-scores`), userData);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    addUserTime();
-    const getHighScoresObjects = async () => {
-      const tempHighScoreArray: highScoreType[] = [];
-      try {
-        const highScoresObjects = await getDocs(collection(db, "high-scores"));
-        highScoresObjects.forEach((doc: any) => {
-          tempHighScoreArray.push(doc.data());
-        });
-        tempHighScoreArray.sort((a, b) => {
-          if (a.time > b.time) {
-            return 1;
-          } else {
-            return -1;
-          }
-        });
-        console.log(tempHighScoreArray);
-        setHighScoreArray(tempHighScoreArray.slice(0, 10));
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    getHighScoresObjects();
+    // api to get highscores
   }, []);
 
   // todo expand upon this refresh function

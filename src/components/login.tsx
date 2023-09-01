@@ -1,17 +1,12 @@
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-  signInAnonymously,
-} from "firebase/auth";
 import React, { useState } from "react";
 import "./login.css";
 
-export default function Login(props: { app: any; start: () => void }) {
-  const [showSignUp, setShowSignUp] = useState(false);
+interface loginType {
+  start: () => void;
+}
 
-  const auth = getAuth(props.app);
+export default function Login({ start }: loginType) {
+  const [showSignUp, setShowSignUp] = useState(false);
 
   const changeLoginToSignUp = (e: React.PointerEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -24,17 +19,7 @@ export default function Login(props: { app: any; start: () => void }) {
     const userPassword = document.getElementById(
       "password"
     ) as HTMLInputElement;
-    try {
-      const userCredentials = await signInWithEmailAndPassword(
-        auth,
-        userEmail.value,
-        userPassword.value
-      );
-      console.log(userCredentials);
-      props.start();
-    } catch (error: any) {
-      console.log(error);
-    }
+    // login api
   };
 
   const signUp = async (e: React.PointerEvent<HTMLButtonElement>) => {
@@ -48,33 +33,12 @@ export default function Login(props: { app: any; start: () => void }) {
     const displayName = document.getElementById(
       "name-sign-up"
     ) as HTMLInputElement;
-    try {
-      const userCredentials = await createUserWithEmailAndPassword(
-        auth,
-        userEmail.value,
-        userPassword.value
-      );
-      if (auth.currentUser !== null) {
-        await updateProfile(auth.currentUser, {
-          displayName: displayName.value,
-        });
-      }
-      console.log(userCredentials);
-      setShowSignUp(!showSignUp);
-    } catch (error: any) {
-      console.log(error);
-    }
+    // sign up api
   };
 
   const tryMe = async (e: React.PointerEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    try {
-      const userCredentials = await signInAnonymously(auth);
-      console.log(userCredentials);
-      props.start();
-    } catch (error: any) {
-      console.log(error);
-    }
+    // try me
   };
 
   const loginPage = () => {

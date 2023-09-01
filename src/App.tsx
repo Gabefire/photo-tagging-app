@@ -3,8 +3,6 @@ import Main from "./components/main";
 import Target from "./components/target";
 import TargetFound from "./components/target-found";
 import Login from "./components/login";
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 export interface tagObjectsType {
   name: string;
@@ -26,31 +24,10 @@ function App() {
   const [running, setRunning] = useState(false as boolean);
   const [status, setStatus] = useState("" as string);
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyDCgjZhT4Wxgxkx3_wgIdPC9n8_1aphnC0",
-    authDomain: "photo-tagging-app-66f90.firebaseapp.com",
-    projectId: "photo-tagging-app-66f90",
-    storageBucket: "photo-tagging-app-66f90.appspot.com",
-    messagingSenderId: "484565065601",
-    appId: "1:484565065601:web:570ef818abfadb866bd280",
-    measurementId: "G-HNJFLJK92K",
-  };
-  const app = initializeApp(firebaseConfig);
-
   useEffect(() => {
-    const db = getFirestore(app);
-
+    // makes tag array
     const getTargetPositions = async () => {
-      const tagObjects: tagObjectsType[] = [];
-      try {
-        const queryPositions = await getDocs(collection(db, "tags"));
-        queryPositions.forEach((doc: any) => {
-          tagObjects.push(doc.data());
-        });
-        setTagArray(tagObjects);
-      } catch (e) {
-        console.log(e);
-      }
+      return;
     };
     getTargetPositions();
     // eslint-disable-next-line
@@ -133,14 +110,13 @@ function App() {
   return (
     <div className="App">
       {showLogin ? (
-        <Login app={app} start={startApp as () => void} />
+        <Login start={startApp as () => void} />
       ) : (
         <Main
           makeTarget={makeTarget}
           time={time}
           startTimer={startTimer}
           gameOver={gameOver}
-          app={app}
           status={status}
         />
       )}
