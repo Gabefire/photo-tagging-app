@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import Instructions from "./instructions";
 import HighScores from "./high-scores";
 import "./main.css";
-
-const background = require("../assets/photo-tag.jpg");
+import background from "../assets/photo-tag.jpg";
 
 interface mainType {
   makeTarget: any;

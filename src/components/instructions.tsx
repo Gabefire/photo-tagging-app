@@ -1,8 +1,7 @@
 import "./instructions.css";
-
-const fry = require("../assets/fry.png");
-const sonic = require("../assets/sonic.png");
-const waldo = require("../assets/waldo.png");
+import fry from "../assets/fry.png";
+import waldo from "../assets/waldo.png";
+import sonic from "../assets/sonic.png";
 
 export default function Instructions({ startTimer }: any) {
   return (
