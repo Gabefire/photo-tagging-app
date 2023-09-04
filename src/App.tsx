@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Main from "./components/main";
 import Target from "./components/target";
 import TargetFound from "./components/target-found";
-import Login from "./components/auth/auth";
+import Auth from "./components/auth/main";
 
 export interface tagObjectsType {
   name: string;
@@ -27,7 +27,23 @@ function App() {
   useEffect(() => {
     // makes tag array
     const getTargetPositions = async () => {
-      return;
+      try {
+        const response = await fetch(
+          "https://photo-tagging-app-api-production.up.railway.app/tags",
+          {
+            mode: "cors",
+            method: "GET",
+          }
+        );
+        const responseJSON = await response.json();
+        setTagArray(responseJSON.tags);
+      } catch (err) {
+        if (typeof err === "string") {
+          throw new Error(err);
+        } else if (err instanceof Error) {
+          throw new Error(err.message);
+        }
+      }
     };
     getTargetPositions();
     // eslint-disable-next-line
@@ -49,7 +65,18 @@ function App() {
     setShowLogin(!showLogin);
   };
 
-  const startTimer = () => {
+  const startTimer = async () => {
+    const response = await fetch(
+      "https://photo-tagging-app-api-production.up.railway.app/start-timer",
+      {
+        mode: "cors",
+        method: "GET",
+        credentials: "include",
+      }
+    );
+    const header = response.headers.forEach((value, key, parent) => {
+      console.log(`${value}, ${key}, ${parent}`);
+    });
     setRunning(!running);
   };
 
@@ -58,7 +85,6 @@ function App() {
     setShowTarget(true);
     const mouseX: number = e.pageX;
     const mouseY: number = e.pageY;
-    const myImg = document.querySelector("img") as HTMLImageElement;
     setTargetX(mouseX);
     setTargetY(mouseY);
   };
@@ -110,7 +136,7 @@ function App() {
   return (
     <div className="App">
       {showLogin ? (
-        <Login start={startApp as () => void} />
+        <Auth start={startApp as () => void} />
       ) : (
         <Main
           makeTarget={makeTarget}

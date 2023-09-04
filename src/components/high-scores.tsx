@@ -13,6 +13,50 @@ export default function HighScores({ time }: highScoresType) {
 
   useEffect(() => {
     // api to get highscores
+    const getHighScores = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        console.log(`cookies: ${document.cookie}`);
+        const response = await fetch(
+          "https://photo-tagging-app-api-production.up.railway.app/highscores",
+          {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              authorization: token as string,
+            },
+          }
+        );
+        console.log(response);
+        const responseJSON = await response.json();
+        if (response.status === 200) {
+          const user = responseJSON.user;
+          console.log(user);
+        } else {
+          console.log(responseJSON);
+          throw new Error(responseJSON.message);
+        }
+        const responseScores = await fetch(
+          "https://photo-tagging-app-api-production.up.railway.app/highscores",
+          {
+            method: "GET",
+          }
+        );
+        const responseScoresJSON = await responseScores.json();
+        if (response.status === 200) {
+          setHighScoreArray(responseScoresJSON.hiScores);
+        } else {
+          throw new Error(responseJSON.message);
+        }
+      } catch (err) {
+        if (typeof err === "string") {
+          throw new Error(err);
+        } else if (err instanceof Error) {
+          throw new Error(err.message);
+        }
+      }
+    };
+    getHighScores();
   }, []);
 
   // todo expand upon this refresh function

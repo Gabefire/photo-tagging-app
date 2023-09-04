@@ -12,11 +12,16 @@ export default function SignUp({ changeLoginToSignUp }: signUpType) {
 
   const signUp = async (e: React.PointerEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    console.log(username, password, confirmPassword);
     try {
-      await fetch(
-        "https://photo-tagging-app-api-production.up.railway.app/login",
+      const response = await fetch(
+        "https://photo-tagging-app-api-production.up.railway.app/sign-up",
         {
           method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify({
             username: username,
             password: password,
@@ -24,6 +29,7 @@ export default function SignUp({ changeLoginToSignUp }: signUpType) {
           }),
         }
       );
+      console.log(response);
       changeLoginToSignUp();
     } catch (err) {
       if (typeof err === "string") {

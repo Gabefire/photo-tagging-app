@@ -8,19 +8,49 @@ interface loginType {
 export default function Login({ changeLoginToSignUp, start }: loginType) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState("");
 
-  const login = async (e: React.PointerEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const userEmail = document.getElementById("username") as HTMLInputElement;
-    const userPassword = document.getElementById(
-      "password"
-    ) as HTMLInputElement;
-    // login api
+  const fetchLogin = async (username: string, password: string) => {
+    try {
+      const response = await fetch(
+        "https://photo-tagging-app-api-production.up.railway.app/login",
+        {
+          mode: "cors",
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: username,
+            password: password,
+          }),
+        }
+      );
+      const responseJSON = await response.json();
+      if (response.status === 200) {
+        localStorage.setItem("token", `bearer ${responseJSON.token}`);
+        start();
+      } else {
+        throw new Error(responseJSON.errors);
+      }
+    } catch (err) {
+      if (typeof err === "string") {
+        setErrors(err.toUpperCase());
+      } else if (err instanceof Error) {
+        setErrors(err.message);
+      }
+    }
   };
 
   const tryMe = async (e: React.PointerEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    start();
+    fetchLogin("anonymous", "12345");
+  };
+
+  const login = async (e: React.PointerEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    fetchLogin(username, password);
   };
 
   return (
@@ -43,7 +73,7 @@ export default function Login({ changeLoginToSignUp, start }: loginType) {
           onChange={(e) => setPassword(e.target.value)}
         />
       </label>
-      <div className="error"></div>
+      <div className="error">{errors}</div>
       <button id="login-btn" onClick={login} className="form-button">
         Login
       </button>
