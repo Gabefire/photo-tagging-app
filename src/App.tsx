@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Main from "./components/main";
 import Target from "./components/target";
 import TargetFound from "./components/target-found";
-import Login from "./components/login";
+import Login from "./components/auth/auth";
 
 export interface tagObjectsType {
   name: string;
