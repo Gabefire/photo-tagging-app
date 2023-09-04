@@ -16,7 +16,6 @@ export default function HighScores({ time }: highScoresType) {
     const getHighScores = async () => {
       try {
         const token = localStorage.getItem("token");
-        console.log(`cookies: ${document.cookie}`);
         const response = await fetch(
           "https://photo-tagging-app-api-production.up.railway.app/highscores",
           {
@@ -27,7 +26,6 @@ export default function HighScores({ time }: highScoresType) {
             },
           }
         );
-        console.log(response);
         const responseJSON = await response.json();
         if (response.status === 200) {
           const user = responseJSON.user;
@@ -59,6 +57,11 @@ export default function HighScores({ time }: highScoresType) {
     getHighScores();
   }, []);
 
+  const logOut = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
   // todo expand upon this refresh function
   function refreshPage(e: React.MouseEvent<HTMLElement>) {
     e.preventDefault();
@@ -88,9 +91,14 @@ export default function HighScores({ time }: highScoresType) {
           </div>
         );
       })}
-      <button className="play-again" onClick={refreshPage}>
-        Play Again
-      </button>
+      <div className="play-again">
+        <button className="highscore-btn" onClick={logOut}>
+          Logout
+        </button>
+        <button className="highscore-btn" onClick={refreshPage}>
+          Play Again
+        </button>
+      </div>
     </div>
   );
 }

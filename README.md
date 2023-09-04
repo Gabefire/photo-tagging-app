@@ -3,7 +3,8 @@
 ## From the Odin's Project [curriculum](www.theodinproject.com)
 
 - Photo tagging where player tries to find characters in where's waldo type pictures as fast as possible
-- [Live Demo](https://photo-tagging-app-66f90.firebaseapp.com/)
+- [Live Demo](https://tiny-sundae-d0a2d1.netlify.app/)
+- [Backend](https://github.com/Gabefire/photo-tagging-app-api)
 
 ## Getting Started
 
@@ -20,14 +21,12 @@ npm run start
 
 - TypeScript
 - React
-- Firebase
-- Jest
+- Vite
 
 ## Practicing
 
 - React
-- Firebase
-- Firebase NoSQL
+- Fullstack development
 - TypeScript
 
 ## How to Play?

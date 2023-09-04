@@ -12,7 +12,6 @@ export default function SignUp({ changeLoginToSignUp }: signUpType) {
 
   const signUp = async (e: React.PointerEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log(username, password, confirmPassword);
     try {
       const response = await fetch(
         "https://photo-tagging-app-api-production.up.railway.app/sign-up",
@@ -29,7 +28,6 @@ export default function SignUp({ changeLoginToSignUp }: signUpType) {
           }),
         }
       );
-      console.log(response);
       changeLoginToSignUp();
     } catch (err) {
       if (typeof err === "string") {

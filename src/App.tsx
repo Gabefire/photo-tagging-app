@@ -46,6 +46,9 @@ function App() {
       }
     };
     getTargetPositions();
+    if (localStorage.getItem("token")) {
+      setShowLogin(false);
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -74,9 +77,6 @@ function App() {
         credentials: "include",
       }
     );
-    const header = response.headers.forEach((value, key, parent) => {
-      console.log(`${value}, ${key}, ${parent}`);
-    });
     setRunning(!running);
   };
 
