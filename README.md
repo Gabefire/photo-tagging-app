@@ -6,6 +6,9 @@
 - [Live Demo](https://tiny-sundae-d0a2d1.netlify.app/)
 - [Backend](https://github.com/Gabefire/photo-tagging-app-api)
 
+> [!IMPORTANT]
+> Cookies and cross site tracking have to be enabled for session cookies to work
+
 ## Getting Started
 
 ### Installing and running
