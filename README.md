@@ -4,7 +4,8 @@
 
 - Photo tagging where player tries to find characters in where's waldo type pictures as fast as possible
 - [Live Demo](https://tiny-sundae-d0a2d1.netlify.app/)
-- [Backend](https://github.com/Gabefire/photo-tagging-app-api)
+- [Backend Typescript](https://github.com/Gabefire/photo-tagging-app-api)
+- [Backend C#](https://github.com/Gabefire/PhotoTaggingApi)
 
 > [!IMPORTANT]
 > Cookies and cross site tracking have to be enabled for session cookies to work
